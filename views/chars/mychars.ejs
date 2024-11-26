@@ -15,23 +15,26 @@
     <h1> <%= user.username %>'s Characters</h1>
     <br>
     <!-- check is User had any made characters -->
-    <% if (myChars.length) { %>
+    <% if (myChars && myChars.length > 0) { %>
         <ul> 
             <% myChars.forEach((char) => { %>
-            <li>
-                <a href="/show/<%= char._id %>">
-                    <%= char.charname %>
-                </a>
-                <br>
-                Last Updated: <%= char.date %>
-                <br>
-                <a href="/chars/<%= char._id %>/edit">Edit Character Details</a>
-            </li>
+               
+                    <li>
+                        <a href="/show/<%= char._id %>">
+                            <%= char.charname %>
+                        </a>
+                        <br>
+                        Last Updated: <%= char.date %>
+                        <br>
+                        <a href="/chars/<%= char._id %>/edit">Edit Character Details</a>
+                    </li>
+              
             <% }) %>
         </ul>
     <% } else { %>
         <a href="/charcreate">Create Your first Character!</a>
     <% } %>
+    
 
 
 

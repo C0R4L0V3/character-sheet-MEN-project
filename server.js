@@ -176,8 +176,12 @@ app.get('/mychars', async (req, res) =>{
 
     try {
     //looks up Users created Characters
-    const myChars = await Character.find({owner: req.session._id})
+    const myChars = await Character.find({charOwner: req.session.user._id})
+    .populate('charOwner', '_id')
+
+
         res.render('chars/mychars.ejs', {
+            user: req.session.user,
             myChars: myChars
         });
     } catch (error){
