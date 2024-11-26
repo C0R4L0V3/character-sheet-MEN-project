@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/app.css">
+    <title><%= charInfo.charname %></title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/nav.ejs') %>
+
+    <br>
+    
+    <h1 id="title"> <%=charInfo.charname %> Details</h1>
+
+    <div id="CharInfo">
+        <div id="basicInfo">
+            <ul>
+                <li><strong>Background: </strong> <%= charInfo.background%> </li>
+                <li><strong>Race: </strong><%= charInfo.race %></li>
+                <li><strong>Class: </strong><%= charInfo.class %></li>
+                <li><strong>Subclass: </strong><%= charInfo.subclass %></li>
+            </ul>
+        </div>
+        <div id="lvlXp">
+            <ul>
+                <li><strong>Level: </strong> <%= charInfo.lvl%></p></li>
+                <li><strong>XP: </strong> <%= charInfo.xp  %></li>
+            </ul>
+        </div>
+        <div id="health">
+            <ul>
+                <li><strong>Current HP: </strong><%= charInfo.hpCurrent %></li>
+                <li><strong>Temporary HP: </strong><%= charInfo.hpTemp %></li>
+                <li><strong>Max HP: </strong><%= charInfo.hpMax %></li>
+            </ul>
+        </div>
+    </div>
+ 
+    <div id="charStats">
+        <br>
+        <div id="proficient">
+            <strong>Proficency Bonus:</strong> <%= charInfo.proficiencyBonus %>
+
+        </div>
+        <br>
+            <div id="sdciwc">
+                <div id="strength">
+                    <h4>Strength</h4>
+                    <ul>
+                        <li><strong>Score: </strong><%= charInfo.Strength.Score%></li>
+                        <li><strong>Modifier: </strong><%= charInfo.Strength.Modifier%></li>
+                        <li><strong>Saving Throw: </strong><%= charInfo.Strength.Savingthrow%></li>
+                        <li><input type="checkbox" name="strength.athletics.proficient"
+                            <% if (charInfo.Strength.Athletics.proficient === true) { %>
+                                checked
+                            <% } %>
+                            />
+                        <strong>Athletics: </strong><%= charInfo.Strength.Athletics.stat %></li>
+                    </ul>
+                </div>
+                <div id="dexterity">
+                    <h4>Dexterity</h4>
+                    <ul>
+                        <!-- Loops through embedded object and check for Booleans and pull the information to the client side -->
+                         <!-- breakdown -->
+                        <!-- stores charInfor.dexterity object in a varible -->
+                        <% const dexObj = charInfo.Dexterity; %>
+                        <!-- for every key inside the dexObject -->
+                        <% for (const key in dexObj) { %>
+                            <!-- we aside the value of the key to the varible ability -->
+                            <% const ability = dexObj[key]; %>
+                                <!-- if the value of ability is equal to number -->
+                                <% if (typeof ability === 'number') { %>
+                                    <!-- we output the key and value into a list -->
+                                    <li>
+                                        <strong><%= key %>: </strong><%= ability %>
+                                    </li>
+                                    <!-- if the value of ablity equal and object, and their is a proficent ket inside the Object -->
+                                <%} else if (typeof ability === 'object' && 'proficient' in ability) { %> 
+                                    <!-- we can now output that embedded obejct key into a checkbock and check to see if the boolean is true or false -->
+                                <li>
+                                    <input type="checkbox" name="Dexterity.<%= key %>.proficient"
+                                        <% if (ability.proficient === true) {%>
+                                            checked
+                                            <% } %>
+                                        />
+                                    <!-- we then output the key field and value of the ability.stat -->
+                                    <strong><%= key %>: </strong><%= ability.stat %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div id="constitution">
+                    <h4>Constitution</h4>
+                    <ul>
+                        <li><strong>Score: </strong><%= charInfo.Constitution.Score%></li>
+                        <li><strong>Modifier: </strong><%= charInfo.Constitution.Modifier%></li>
+                    </ul>
+                </div>
+                <div id="intelligence">
+                    <h4>Intelligence</h4>
+                        <!-- loops through and suppose to output all stats in the intelligence object -->
+                    <ul>
+                        <% const intObj = charInfo.Intelligence; %>
+                        <% for (const key in intObj) { %>
+                            <% const ability = intObj[key]; %>
+                                <!-- static keys will output correctly here -->
+                            <% if (typeof ability === 'number') { %>
+                                <li>
+                                    <strong><%= key %>: </strong><%= ability %>
+                                </li>
+                                <!-- looks for the boolean of proficent and displays in a list -->
+                            <% } else if (typeof ability === 'object' && 'proficient' in ability) { %>
+                                <li>
+                                    <input type="checkbox" name="Intelligence.<%= key %>.proficient"
+                                        <% if (ability.proficient === true) { %>
+                                            checked
+                                            <% } %>
+                                    />
+                                    <strong><%= key %>: </strong><%= ability.stat %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div id="wisdom">
+                    <h4>Widom</h4>
+                        <!-- loops through to output all stats in the embedded wisdom object -->
+                    <ul>
+                        <% const wisObj = charInfo.Wisdom %>
+                        <% for (const key in wisObj) { %>
+                            <% const ability = wisObj[key]; %>
+                            <!-- pulls statics keys of embedded wisdom object -->
+                            <% if (typeof ability === 'number') {%>
+                                <li>
+                                    <strong><%= key %></strong><%= ability %>
+                                </li>
+                                <!-- pulls and displays boolean objects -->
+                            <% } else if (typeof ability === 'object' && 'proficient' in ability) { %>
+                                <li>
+                                    <input type="checkbox" name="Wisdom.<%= key %>.proficient"
+                                        <% if (ability.proficient === true) { %>
+                                        checked
+                                        <% } %>
+                                    />
+                                    <strong><%= key %>: </strong><%= ability.stat %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div id="charisma">
+                    <h4>Charisma</h4>
+                    <ul>
+                        <!-- loop through embedded charisma object -->
+                            <% const chaObj = charInfo.Charisma %>
+                            <% for (const key in chaObj) { %>
+                            <% const ability = chaObj[key]; %>
+                            <!-- loog through and output static keys -->
+                            <% if (typeof ability === 'number') { %>
+                                <li>
+                                    <strong><%= key %></strong><%= ability %>
+                                </li>
+                            <% } else if (typeof ability === 'object' && 'proficient' in ability) { %>
+                                <li>
+                                    <input type="checkbox" name="Charisma.<%= key %>.proficient"
+                                        <% if (ability.proficient === true) { %>
+                                            checked
+                                        <% } %>
+                                    />
+                                    <strong><%= key %></strong><%= ability.stat %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+
+                </div>
+            </div>  
+    </div>
+
+
+
+    <!-- if user logged in is character owner it should allow the user option to edit -->
+    <!-- need to convert data to a string so it can be compared -->
+     <!-- needed to check if user was also logged in or not -->
+     <% if (user && user._id.toString() === charInfo.charOwner._id.toString()) { %>
+        <a href="/chars/<%= charInfo._id %>/edit">Edit Character Details</a>
+    <% } else { %>
+        <p><%= charInfo.charname %> created by <%= charInfo.charOwner.username %></p>
+    <% }  %>
+
+
+</body>
+</html>

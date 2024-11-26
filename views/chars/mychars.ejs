@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/app.css">
+    <title>My Characters</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <br>
+    <%- include('../partials/nav.ejs') %>
+    <br>
+
+    <h1> <%= user.username %>'s Characters</h1>
+    <br>
+    <!-- check is User had any made characters -->
+    <% if (myChars.length) { %>
+        <ul> 
+            <% myChars.forEach((char) => { %>
+            <li>
+                <a href="/show/<%= char._id %>">
+                    <%= char.charname %>
+                </a>
+                <br>
+                Last Updated: <%= char.date %>
+                <br>
+                <a href="/chars/<%= char._id %>/edit">Edit Character Details</a>
+            </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <a href="/charcreate">Create Your first Character!</a>
+    <% } %>
+
+
+
+    
+</body>
+</html>

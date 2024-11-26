@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/app.css">
+    <title>Character Creation</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+    <br>
+
+    <form action="/charcreate" method="POST">
+        <div id="CharCreate">
+            <div id="createbase">
+                <h4>Base Character Info</h4>
+                <label for="charname"> Character Name:</label>
+                <input type="text" name="charname" />
+                <label for="background">Background:</label>
+                <input type="text" name="background"/>
+                <label for="race">Race:</label>
+                <input type="text" name="race"/>
+                <label for="class">Class:</label>
+                <input type="text" name="class"/>
+            </div>
+            <!-- <div id="charStats">
+                <h4> Base Stats</h4>
+                <labeL for="strength.score">Strength:</labeL>
+                <input type="number" name="strength.score" value="8">
+                <labeL for="dexterity.score">Dexterity:</labeL>
+                <input type="number" name="dexterity.score" value="8" >
+                <labeL for="constitution.score">Constitution:</labeL>
+                <input type="number" name="constitution.score" value="8" >
+                <labeL for="intelligence.score">Intelligence:</labeL>
+                <input type="number" name="intelligence.score" value="8" >
+                <labeL for="wisdom.score">Wisdom:</labeL>
+                <input type="number" name="wisdom.score" value="8">
+                <labeL for="charisma.score">Charisma:</labeL>
+                <input type="number" name="charisma.score" value="8">
+            </div> -->
+        </div>
+
+            <button type="submit"> Create Character</button>
+    </form>
+
+
+    
+
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/app.css">
+    <title><%= charInfo.charname %></title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/nav.ejs') %>
+
+    <br>
+    <div id="edit">
+    <form action="/chars/<%= charInfo._id %>?_method=PUT" method="POST">
+        <div id="CharInfo">
+
+            <div id="basicInfo">
+                <h4>Base Character Info</h4>
+                <label for="charname"> Character Name:</label>
+                <input type="text" name="charname" value="<%= charInfo.charname %>"/>
+                <label for="background">Background:</label>
+                <input type="text" name="background" value="<%= charInfo.background %>"/>
+                <label for="race">Race:</label>
+                <input type="text" name="race" value="<%= charInfo.race %>"/>
+                <label for="class">Class:</label>
+                <input type="text" name="class" value="<%= charInfo.class %>"/>
+            </div>
+        </div>
+           
+        <div id="charStats">
+            <br>
+            <div id="proficient">
+
+                <div id="sdciwc">
+                <!--
+                    <h4> Base Stats</h4>
+                    <labeL for="strength.score">Strength:</labeL>
+                    <input type="number" name="strength.score" value="8">
+                    <labeL for="dexterity.score">Dexterity:</labeL>
+                    <input type="number" name="dexterity.score" value="8">
+                    <labeL for="constitution.score">Constitution:</labeL>
+                    <input type="number" name="constitution.score" value="8">
+                    <labeL for="intelligence.score">Intelligence:</labeL>
+                    <input type="number" name="intelligence.score" value="8">
+                    <labeL for="wisdom.score">Wisdom:</labeL>
+                    <input type="number" name="wisdom.score" value="8">
+                    <labeL for="charisma.score">Charisma:</labeL>
+                    <input type="number" name="charisma.score" value="8">
+                -->
+                    <!-- going to try and see if i can loop and  automatically list all fields -->
+                    <!-- putting the charInfo into a variable -->
+                    <% const charObj = charInfo%>
+                    <!-- for each key assign the value to a varible -->
+                    <% for (const mainKey in charObj) { %>
+                        <% const mainValue = charObj[mainKey]; %>
+
+                        <!-- mainKey would equal Strength, Dexterity, etc -->
+
+                        <!-- checks if value is an object, and contains ability scores -->
+                        <!-- having !== null prevents it treating null as an object, very important! -->
+                        <% if (typeof mainValue === 'object' && mainValue !== null && ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'].includes(mainKey)) { %> 
+                            <!-- using the array includes() method to check ithe mainkey value is equal to one of the ability score names  -->
+                            <div id="<%= mainKey %>"> <!-- making a div id that is equal to the ability score  key name-->
+                                <h3><%= mainKey %></h3>
+                                <!-- now mainValue euqals the ability score object, we nee to itterate through the object -->
+                                <ul>
+                                <% for(const statKey in mainValue) { %>
+                                    <% const statValue = mainValue[statKey]; %>
+
+                                    <!-- statKey would equal nest keys: Score, Modifier, Savingthrow, etc  -->
+                                        
+                                        <% if (typeof statValue === 'number') { %>
+                                            <li>
+                                                <label for="<%= mainKey %>.<%= statKey %>"><%= statKey %>: </label>
+                                                <input type="number" name="<%= mainKey %>.<%= statKey %>" value="<%= statValue %>" style="width: 30px;"/>
+                                            </li>
+                                            <!-- if statvalue is and object that contains proficient-->
+                                        <% } else if (typeof statValue === 'object' && 'proficient' in statValue) {%>
+                                            <li>
+                                                <label for="<%= mainKey %>.<%= statKey %>"><%= statKey %></label>
+                                                <!-- work around to get false values -->
+                                                <input type="hidden" name="<%= mainKey %>.<%= statKey %>.proficient" value="false" />
+                                                <!-- checkbox for true values -->
+                                                <input type="checkbox" name="<%= mainKey%>.<%= statKey %>.proficient" value="true"
+                                                    <% if (statValue.proficient === true) { %>
+                                                    checked
+                                                    <% } %>
+                                                    />
+                                                    <input type="number" name="<%= mainKey %>.<%= statKey %>.stat" value="<%= statValue.stat%>" style="width: 30px;"/>
+                                            </li>
+                                        <% } %>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        <% } %>   
+                    <%} %>
+                </div>
+            </div>
+        </div>                       
+       
+
+
+        <button type="submit"> Add Changes</button>
+    </form>
+    </div>
+    <br>
+    <div id="delete">
+        <form action="/chars/<%= charInfo._id %>?_method=DELETE" method="POST">
+            <button type="submit"> Delete <%= charInfo.charname %></button>
+        </form>
+    </div>
+
+    
+
+    
+</body>
+</html>

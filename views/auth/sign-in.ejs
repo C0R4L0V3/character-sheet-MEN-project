@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/app.css">
+    <title>Login</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <br>
+    <nav id="navbar">
+        <a href="../">Home</a>
+        <a href="/indexchars"> Browse Characters</a>
+        <a href="/charcreate">Create a Chacater</a>
+    </nav>
+    <br>
+
+    <div>
+    <h4> Sign In</h4>
+        <div id="sign-in">
+            <form action="/auth/sign-in" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" name="username" >
+                <label for="password">Password:</label>
+                <input type="password" name="password">
+                <button type="submit">Login</button>
+            </form>
+            <a href="/auth/sign-up">Sign Up</a>
+        </div>
+    </div>
+
+    
+</body>
+</html>

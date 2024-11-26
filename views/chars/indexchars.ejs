@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/app.css">
+    <title>Browse Characters</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/nav.ejs') %>
+
+    <h1> Recently Created Characters!</h1>
+
+    <!-- list all created Characters -->
+    <!-- if allChars has any length -->
+    <% if (allChars.length) { %>
+        <ul>
+            <% allChars.forEach((char) => { %>
+            <li>
+                <a href="/show/<%= char._id %>"><%= char.charname %></a>
+               
+                <br>
+                Created by: <%= char.charOwner.username %>
+                <br>
+                Lasted Updated: <%= char.date %>
+            </li>
+            <% })%>
+        </ul>
+
+    <%  }else { %> 
+        <p> No Characters Created Yet</p>
+    <% } %>
+
+
+
+    
+</body>
+</html>

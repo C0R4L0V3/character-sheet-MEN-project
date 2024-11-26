@@ -1,0 +1,121 @@
+const mongoose = require('mongoose');
+
+const charSheetSchema = new mongoose.Schema({
+
+        charOwner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        date: String,
+        charname: String,
+        background: String,
+        race: String,
+        class: String,
+        subclass: String,
+        lvl: {type: Number, default: 1},
+        xp: {type: Number, default: 0},
+        AC: {type: Number, default: 0},
+        hpCurrent: {type: Number, default: 0},
+        hpTemp: {type: Number, default: 0},
+        hpMax: {type: Number, default: 0},
+        hitDiceSpent: {type: Number, default: 0},
+        hitDiceMax: {type: Number, default: 0},
+        deathSaveSuccess: {type: Number, default: 0},
+        deathSaveFail: {type: Number, default:0},
+        proficiencyBonus: {type: Number, default: 0},
+        Strength: {
+            Score: {type: Number, default: 8}, 
+            Modifier: {type: Number, default: 0},
+            Savingthrow: {type: Number, default: 0},
+            Athletics: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+        },
+        Dexterity: {
+            Score: {type: Number, default: 8},
+            Modifier: {type: Number, default: 0},
+            Savingthrow: {type: Number, default: 0},
+            Acrobatics: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            SleightOfHand: { proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Stealth: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+        },
+        Constitution: {
+            Score: {type: Number, default: 8},
+            Modifier: {type: Number, default: 0},
+        },
+        Intelligence: {
+            Score: {type: Number, default: 8}, 
+            Modifier: {type: Number, default: 0},
+            Savingthrow: {type: Number, default: 0},
+            Arcana: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            History: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Investigation: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Nature: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Religion: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+        },
+        Wisdom: {
+            Score: {type: Number, default: 8}, 
+            Modifier: {type: Number, default: 0},
+            Savingthrow: {type: Number, default: 0},
+            AnimalHand: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Insight: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Medicine: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Preception: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Surival: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+        },
+        Charisma: {
+            Score: {type: Number, default: 8}, 
+            Modifier: {type: Number, default: 0},
+            Savingthrow: {type: Number, default: 0},
+            Deception: {proficient: {type: Boolean, default: false }, stat: {type: Number, default: 0}},
+            Intimdation: {proficient: {type: Boolean, default: true }, stat: {type: Number, default: 0}},
+            Performance: {proficient: {type: Boolean, default: true }, stat: {type: Number, default: 0}},
+            Persuasion: {proficient: {type: Boolean, default: true }, stat: {type: Number, default: 0}},
+        },
+        initiative: Number,
+        speed: Number,
+        size: Number,
+        passivePerception: Number,
+        heroicInspriation : Boolean,
+        armorlight: Boolean,
+        armorMed: Boolean,
+        armorHeavy: Boolean,
+        sheilds: Boolean,
+        Weapons: String,
+        tools: String,
+        //may make this as another model as well.
+        WeapOffense: [
+            {name: String, atkBonus: Number, dc: Number, damage: Number, type: String, notes: String},
+        ],
+        weapName: String,
+        atkBonusDC: String,
+        dmgType: String,
+        notes: String,
+        classFeat: [String],
+        raceTraits: [String],
+        feats: [String],
+        spellModify: {type: Number, defulat: 0},
+        spellSave: {type: Number, defulat: 0},
+        spellBonus: {type: Number, defulat: 0},
+        spellSlots: {
+            slotTotal: Number,
+            expended: Number,
+            },
+            //make as another model
+        spellList: [
+            {
+                lvl: Number, 
+                name: String, 
+                castTime: Number, 
+                range: Number, 
+                reqConcen: Boolean, 
+                reqRitual: Boolean, 
+                reqMaterial: Boolean, 
+                notes: String
+            },
+        ],
+        backgstory: String,
+        alignment: String,
+        languages: String,
+        equipment: String,
+
+})
+
+const Character = mongoose.model('Character', charSheetSchema);
+
+module.exports = Character;

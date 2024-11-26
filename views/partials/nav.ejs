@@ -1,0 +1,25 @@
+<!-- if user is logged in -->
+<nav id="navbar">
+    <a class="nav" href="../../">Home</a>
+    <!-- maybe and "about" path -->
+     <a class="nav" href="/indexchars"> Browse Characters</a>
+     <a class="nav" href="/charcreate">Create a Chacater</a>
+     <div id="login">
+    <% if (user) { %>
+        <a class="nav" href="/mychars">My Characters</a>
+        <a class="accountAction" href="/auth/sign-out">Sign Out</a>
+        <!-- account settings path here -->
+    <%} else {%>
+        <a class="accountAction" href="/auth/sign-up">Sign Up</a>
+        <a class="accountAction" href="/auth/sign-in">Login</a>
+
+    <%}%>
+    </div>
+</nav>
+
+
+
+
+
+
+
